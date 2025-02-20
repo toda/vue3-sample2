@@ -1,4 +1,12 @@
 <script setup>
+import {
+  onMounted,
+  onBeforeMount,
+  onUnmounted,
+  onBeforeUnmount,
+  onUpdated,
+  onBeforeUpdate,
+} from 'vue'
 defineProps({
   name: {
     type: String,
@@ -8,6 +16,24 @@ defineProps({
     type: String,
     required: true,
   },
+})
+onMounted(() => {
+  console.log('mounted2')
+})
+onUnmounted(() => {
+  console.log('unmounted2')
+})
+onUpdated(() => {
+  console.log('updated2')
+})
+onBeforeMount(() => {
+  console.log('before mount2')
+})
+onBeforeUpdate(() => {
+  console.log('before update2')
+})
+onBeforeUnmount(() => {
+  console.log('before unmount2')
 })
 </script>
 <template>

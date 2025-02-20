@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, nextTick, useTemplateRef, onBeforeUpdate, onMounted } from 'vue'
 import FoodCard from '@/components/FoodCard.vue'
 const foodsList = ref([
   { name: '寿司', icon: '🍣' },
@@ -34,13 +34,31 @@ const handleClick = (e, value) => {
     isLastFood.value = true
   }
   console.log(pickedFoodIndex.value)
+  nextTick(() => {
+    console.log('nextTick in handleClick')
+  })
+}
+const name = ref('guest')
+const userInput = useTemplateRef('user-input')
+onMounted(() => {
+  console.log(`onMounted`)
+})
+onBeforeUpdate(() => {
+  console.log(`onBeforeUpdated : ${userInput.value.value}`)
+})
+const reName = (event) => {
+  console.log(`rename : ${event.target.value}`)
+  name.value = event.target.value
 }
 </script>
 
 <template>
   <main>
-    <h1 class="title">何食べる？</h1>
-
+    <h1 class="title">{{ name }}さん、今日何食べる？</h1>
+    <p>
+      名前 :
+      <input type="text" @input="reName" ref="user-input" :value="name" placeholder="name" />
+    </p>
     <div class="todays-food" v-if="isLastFood">
       <p>今日のご飯は、</p>
       <FoodCard :name="foodsList[pickedFoodIndex].name" :icon="foodsList[pickedFoodIndex].icon" />
