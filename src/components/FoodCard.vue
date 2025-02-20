@@ -1,13 +1,27 @@
+<script setup>
+defineProps({
+  name: {
+    type: String,
+    required: true,
+  },
+  icon: {
+    type: String,
+    required: true,
+  },
+})
+</script>
 <template>
   <div class="card">
-    <span class="food-name">寿司</span>
-    <span class="food-icon">🍣</span>
+    <p class="food-name">{{ name }}</p>
+    <p class="food-icon">{{ icon }}</p>
   </div>
 </template>
 <style scoped>
 .card {
-  display: inline-block;
   padding: 16px;
+  width: 250px;
+  height: auto;
+  margin: 0 auto;
   border: 1px solid #ccc;
   border-radius: 8px;
   background-color: #fff;
@@ -15,10 +29,11 @@
   font-size: 2rem;
   cursor: pointer;
 }
-.food-name {
-  margin-right: 8px;
+.card:hover {
+  background-color: rgb(79, 153, 228);
 }
 .food-icon {
+  margin-top: -20px;
   font-size: 48px;
 }
 </style>
